@@ -17,10 +17,22 @@ public class AStarRouting
     private static final EstimateEvaluator<Double> estimateEval = new GeoCostEvaluator();
     private static final CostEvaluator<Double> costEval = new DoubleEvaluator(
             Waypoint.COST );
-    private static final GraphDatabaseService graphDb = new EmbeddedGraphDatabase(
-            "target/neo4j-db" );
 
     public static void main( final String[] args )
+    {
+        GraphDatabaseService graphDb = new EmbeddedGraphDatabase(
+                "target/neo4j-db" );
+        try
+        {
+            routing( graphDb );
+        }
+        finally
+        {
+            graphDb.shutdown();
+        }
+    }
+
+    private static void routing( final GraphDatabaseService graphDb )
     {
         Transaction tx = graphDb.beginTx();
         Waypoint NYC, KAN, SFE, SEA, SF;
@@ -59,6 +71,5 @@ public class AStarRouting
         {
             tx.finish();
         }
-        graphDb.shutdown();
     }
 }
