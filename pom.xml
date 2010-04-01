@@ -6,9 +6,9 @@
   <name>Java A* routing example</name>
   <version>1.0.0-SNAPSHOT</version>
   <parent>
-    <artifactId>parent-pom</artifactId>
-    <groupId>org.neo4j</groupId>
-    <version>6</version>
+    <artifactId>examples-pom</artifactId>
+    <groupId>org.neo4j.examples</groupId>
+    <version>1.0.0-SNAPSHOT</version>
   </parent>
   <dependencies>
     <dependency>
@@ -22,6 +22,7 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.8.1</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.neo4j</groupId>
@@ -44,6 +45,41 @@
           <source>1.6</source>
           <target>1.6</target>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>appassembler-maven-plugin
+                </artifactId>
+        <configuration>
+          <programs>
+            <program>
+              <mainClass>org.neo4j.examples.astarrouting.AStarRouting
+              </mainClass>
+              <name>a-star-routing</name>
+            </program>
+          </programs>
+        </configuration>
+        <executions>
+          <execution>
+            <id>examples</id>
+            <phase>package</phase>
+            <goals>
+              <goal>assemble</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>apoc-assembly</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
