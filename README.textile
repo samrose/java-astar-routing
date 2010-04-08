@@ -22,29 +22,28 @@ Only Java 6 is required to execute the example using the download.
 
 *Contents of the download package*
 
-bin/   start scripts for the application in Unix and Windows format
-docs/  javadoc of all Neo4j component dependencies of the project
-lib/   all dependency jars of the project
-src/   source code of the project
+@bin/@     start scripts for the application in Unix and Windows format
+@docs/@   javadoc of all Neo4j component dependencies of the project
+@lib/@     all dependency jars of the project
+@src/@     source code of the project
 
 
 *Run from source*
 
 _Using JDK:_
-   Use the download package and add the lib/ directory
-   to the project classpath ("build path" in Eclipse).
-   In this case, only JDK 1.6 is required to run the code
-   from source.
+ Use the download package and add the lib/ directory
+ to the project classpath ("build path" in Eclipse).
+ In this case, only JDK 1.6 is required to run the code
+ from source.
 
 _Using JDK + Maven:_
-   Checkout the code from GitHub and use the Maven2
-   setup originally used for the project. This option requires
-   JDK 1.6 and Maven2 to be installed, see:
-   http://wiki.neo4j.org/content/Java_Setup_HowTo
-   With Maven2 installed, simply issue the following command
-   at the command prompt:
-   @$ mvn clean compile exec:java -Dexec.mainClass="org.neo4j.examples.astarrouting.AStarRouting"@
-   This command will download all dependencies that are needed on the first run.
+Checkout or download the source code from GitHub and use the Maven2
+ setup originally used for the project. This option requires
+ JDK 1.6 and Maven2 to be installed, see:  "Java Setup":http://wiki.neo4j.org/content/Java_Setup_HowTo
+ With Maven2 installed, simply issue the following command
+ at the command prompt:
+ @$ mvn clean compile exec:java -Dexec.mainClass="org.neo4j.examples.astarrouting.AStarRouting"@
+ This command will download all dependencies which are needed on the first run.
 
 
 *Sample output*
