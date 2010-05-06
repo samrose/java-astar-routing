@@ -1,7 +1,5 @@
 package org.neo4j.examples.astarrouting;
 
-import org.neo4j.graphalgo.Path;
-import org.neo4j.graphalgo.RelationshipExpander;
 import org.neo4j.graphalgo.shortestpath.AStar;
 import org.neo4j.graphalgo.shortestpath.CostEvaluator;
 import org.neo4j.graphalgo.shortestpath.EstimateEvaluator;
@@ -9,7 +7,9 @@ import org.neo4j.graphalgo.shortestpath.std.DoubleEvaluator;
 import org.neo4j.graphdb.Direction;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
+import org.neo4j.graphdb.Path;
 import org.neo4j.graphdb.Transaction;
+import org.neo4j.kernel.DefaultExpander;
 import org.neo4j.kernel.EmbeddedGraphDatabase;
 
 public class AStarRouting
@@ -57,12 +57,12 @@ public class AStarRouting
         tx = graphDb.beginTx();
         try
         {
-            AStar sp = new AStar( graphDb, RelationshipExpander.forTypes(
-                    RelationshipTypes.ROAD, Direction.BOTH ), costEval,
-                    estimateEval );
+            DefaultExpander relExpander = new DefaultExpander();
+            relExpander.add( RelationshipTypes.ROAD, Direction.BOTH );
+            AStar sp = new AStar( graphDb, relExpander, costEval, estimateEval );
             Path path = sp.findSinglePath( NYC.getUnderlyingNode(),
                     SF.getUnderlyingNode() );
-            for ( Node node : path.getNodes() )
+            for ( Node node : path.nodes() )
             {
                 System.out.println( node.getProperty( Waypoint.NAME ) );
             }
