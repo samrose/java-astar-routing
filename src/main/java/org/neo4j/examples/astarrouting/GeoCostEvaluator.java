@@ -1,6 +1,6 @@
 package org.neo4j.examples.astarrouting;
 
-import org.neo4j.graphalgo.shortestpath.EstimateEvaluator;
+import org.neo4j.graphalgo.EstimateEvaluator;
 import org.neo4j.graphdb.Node;
 
 public class GeoCostEvaluator implements EstimateEvaluator<Double>

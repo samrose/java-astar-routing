@@ -1,16 +1,17 @@
 package org.neo4j.examples.astarrouting;
 
-import org.neo4j.graphalgo.shortestpath.AStar;
-import org.neo4j.graphalgo.shortestpath.CostEvaluator;
-import org.neo4j.graphalgo.shortestpath.EstimateEvaluator;
-import org.neo4j.graphalgo.shortestpath.std.DoubleEvaluator;
+import org.neo4j.graphalgo.CostEvaluator;
+import org.neo4j.graphalgo.EstimateEvaluator;
+import org.neo4j.graphalgo.impl.path.AStar;
+import org.neo4j.graphalgo.impl.util.DoubleEvaluator;
 import org.neo4j.graphdb.Direction;
+import org.neo4j.graphdb.Expander;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Path;
 import org.neo4j.graphdb.Transaction;
-import org.neo4j.kernel.DefaultExpander;
 import org.neo4j.kernel.EmbeddedGraphDatabase;
+import org.neo4j.kernel.TraversalFactory;
 
 public class AStarRouting
 {
@@ -57,9 +58,10 @@ public class AStarRouting
         tx = graphDb.beginTx();
         try
         {
-            DefaultExpander relExpander = new DefaultExpander();
+            Expander relExpander = TraversalFactory.expanderForTypes(
+                    RelationshipTypes.ROAD, Direction.BOTH );
             relExpander.add( RelationshipTypes.ROAD, Direction.BOTH );
-            AStar sp = new AStar( graphDb, relExpander, costEval, estimateEval );
+            AStar sp = new AStar( relExpander, costEval, estimateEval );
             Path path = sp.findSinglePath( NYC.getUnderlyingNode(),
                     SF.getUnderlyingNode() );
             for ( Node node : path.nodes() )
