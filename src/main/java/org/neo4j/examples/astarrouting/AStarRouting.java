@@ -1,11 +1,11 @@
 package org.neo4j.examples.astarrouting;
 
+import org.neo4j.graphalgo.CommonEvaluators;
 import org.neo4j.graphalgo.CostEvaluator;
 import org.neo4j.graphalgo.EstimateEvaluator;
 import org.neo4j.graphalgo.GraphAlgoFactory;
 import org.neo4j.graphalgo.PathFinder;
 import org.neo4j.graphalgo.WeightedPath;
-import org.neo4j.graphalgo.impl.util.DoubleEvaluator;
 import org.neo4j.graphdb.Direction;
 import org.neo4j.graphdb.Expander;
 import org.neo4j.graphdb.GraphDatabaseService;
@@ -17,9 +17,9 @@ import org.neo4j.kernel.TraversalFactory;
 
 public class AStarRouting
 {
-    private static final EstimateEvaluator<Double> estimateEval = new GeoCostEvaluator();
-    private static final CostEvaluator<Double> costEval = new DoubleEvaluator(
-            Waypoint.COST );
+    private static final EstimateEvaluator<Double> estimateEval = CommonEvaluators.geoEstimateEvaluator(
+            Waypoint.LATITUDE, Waypoint.LONGITUDE );
+    private static final CostEvaluator<Double> costEval = CommonEvaluators.doubleCostEvaluator( Waypoint.COST );
 
     public static void main( final String[] args )
     {
