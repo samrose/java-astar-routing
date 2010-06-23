@@ -2,7 +2,9 @@ package org.neo4j.examples.astarrouting;
 
 import org.neo4j.graphalgo.CostEvaluator;
 import org.neo4j.graphalgo.EstimateEvaluator;
-import org.neo4j.graphalgo.impl.path.AStar;
+import org.neo4j.graphalgo.GraphAlgoFactory;
+import org.neo4j.graphalgo.PathFinder;
+import org.neo4j.graphalgo.WeightedPath;
 import org.neo4j.graphalgo.impl.util.DoubleEvaluator;
 import org.neo4j.graphdb.Direction;
 import org.neo4j.graphdb.Expander;
@@ -61,7 +63,8 @@ public class AStarRouting
             Expander relExpander = TraversalFactory.expanderForTypes(
                     RelationshipTypes.ROAD, Direction.BOTH );
             relExpander.add( RelationshipTypes.ROAD, Direction.BOTH );
-            AStar sp = new AStar( relExpander, costEval, estimateEval );
+            PathFinder<WeightedPath> sp = GraphAlgoFactory.aStar( relExpander,
+                    costEval, estimateEval );
             Path path = sp.findSinglePath( NYC.getUnderlyingNode(),
                     SF.getUnderlyingNode() );
             for ( Node node : path.nodes() )
