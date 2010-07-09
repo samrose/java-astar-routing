@@ -13,7 +13,7 @@ import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Path;
 import org.neo4j.graphdb.Transaction;
 import org.neo4j.kernel.EmbeddedGraphDatabase;
-import org.neo4j.kernel.TraversalFactory;
+import org.neo4j.kernel.Traversal;
 
 public class AStarRouting
 {
@@ -60,7 +60,7 @@ public class AStarRouting
         tx = graphDb.beginTx();
         try
         {
-            Expander relExpander = TraversalFactory.expanderForTypes(
+            Expander relExpander = Traversal.expanderForTypes(
                     RelationshipTypes.ROAD, Direction.BOTH );
             relExpander.add( RelationshipTypes.ROAD, Direction.BOTH );
             PathFinder<WeightedPath> sp = GraphAlgoFactory.aStar( relExpander,
