@@ -34,7 +34,7 @@ import javax.xml.stream.events.XMLEvent;
 public class YahooXmlReader
 {
     private static final String APP_ID = "JzJ0LQ_V34EWH5agHt7TZxD0Eqz2CoEkX.xAM9y8PeAIjYALdy4C9Psh0pcZ1t6dpPf9zxXXjICw";
-    private static final String YAHOO_URI = "http://local.yahooapis.com/MapsService/V1/geocode?appid="
+    private static final String YAHOO_URI = "http://where.yahooapis.com/geocode?appid="
                                             + APP_ID;
 
     private static Coordinates readYahooXml( final InputStream in )
